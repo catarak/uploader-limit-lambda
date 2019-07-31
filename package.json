@@ -1,0 +1,15 @@
+{
+  "name": "p5.js-web-editor-upload-limit-lambda",
+  "version": "0.0.1",
+  "description": "writes the total size of a user's media files to the specified mongodb every time a user adds or removes a file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "zip -r function.zip ."
+  },
+  "author": "Cassie Tarakajian",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.3.0-beta2"
+  }
+}

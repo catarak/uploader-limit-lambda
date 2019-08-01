@@ -1,5 +1,5 @@
 "use strict";
-// assumes process.env.MONGO_URI and processing.env.MONGODB_NAME are defined in your
+// assumes process.env.MONGODB_URI and processing.env.MONGODB_NAME are defined in your
 // lambda's configuration
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
@@ -17,8 +17,9 @@ function connectToDatabase(uri) {
         return Promise.resolve(cachedDb);
     }
 
-    return MongoClient.connect(uri)
+    return MongoClient.connect(uri, { useNewUrlParser: true })
         .then(db => {
+            console.log('connected to database!')
             cachedDb = db.db(process.env.MONGODB_NAME);
             return cachedDb;
         });
@@ -61,6 +62,7 @@ exports.handler = (event, context, callback) => {
             .then(result => {
                 console.log('=> returning result: ', result);
                 callback(null, result);
+                context.succeed("done");
             })
             .catch(err => {
                 console.log('=> an error occurred: ', err);
